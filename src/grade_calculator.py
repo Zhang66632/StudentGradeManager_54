@@ -80,16 +80,21 @@ class GradeCalculator:
             total_credits += credit
         return total_points / total_credits if total_credits > 0 else 0
 
-    def analyze_grade_trend(self, student_grades):
-        """分析成绩趋势 - feature分支版本"""
-        trend_analysis = {}
-        for student_id, grades_history in student_grades.items():
-            if len(grades_history) > 1:
-                first_avg = sum(grades_history[0].values()) / len(grades_history[0])
-                last_avg = sum(grades_history[-1].values()) / len(grades_history[-1])
-                trend = "上升" if last_avg > first_avg else "下降" if last_avg < first_avg else "稳定"
-                trend_analysis[student_id] = {
-                    'trend': trend,
-                    'improvement': last_avg - first_avg
-                }
-        return trend_analysis
+    def generate_grade_report(self, students_data):
+        """生成成绩报告 - feature分支版本"""
+        report = []
+        for student_id, info in students_data.items():
+            grades = info['grades']
+            if grades:
+                total = sum(grades.values())
+                count = len(grades)
+                avg = total / count
+                level = self.get_grade_level(avg)
+                report.append({
+                    '学号': student_id,
+                    '姓名': info['name'],
+                    '平均分': round(avg, 2),
+                    '等级': level
+                })
+        return report
+
