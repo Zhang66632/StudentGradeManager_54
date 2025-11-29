@@ -79,3 +79,16 @@ class GradeCalculator:
             total_points += points * credit
             total_credits += credit
         return total_points / total_credits if total_credits > 0 else 0
+
+    def calculate_grade_statistics(self, grades_data):
+        """计算成绩统计数据 - develop分支版本"""
+        statistics = {}
+        for course, grades in grades_data.items():
+            if grades:
+                statistics[course] = {
+                    'average': sum(grades) / len(grades),
+                    'max': max(grades),
+                    'min': min(grades),
+                    'count': len(grades)
+                }
+        return statistics
