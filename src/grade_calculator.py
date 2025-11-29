@@ -49,3 +49,33 @@ class GradeCalculator:
 
         # 按平均分降序排列
         return sorted(student_scores, key=lambda x: x['average'], reverse=True)
+
+    def calculate_weighted_average(self, grades_dict, weights_dict):
+        """计算加权平均分 - feature分支版本"""
+        total = 0
+        total_weight = 0
+        for course, grade in grades_dict.items():
+            weight = weights_dict.get(course, 1)
+            total += grade * weight
+            total_weight += weight
+        return total / total_weight if total_weight > 0 else 0
+
+    def calculate_semester_gpa(self, grades_dict, credit_dict):
+        """计算学期GPA - develop分支版本"""
+        total_points = 0
+        total_credits = 0
+        for course, grade in grades_dict.items():
+            credit = credit_dict.get(course, 1)
+            if grade >= 90:
+                points = 4.0
+            elif grade >= 80:
+                points = 3.0
+            elif grade >= 70:
+                points = 2.0
+            elif grade >= 60:
+                points = 1.0
+            else:
+                points = 0.0
+            total_points += points * credit
+            total_credits += credit
+        return total_points / total_credits if total_credits > 0 else 0
