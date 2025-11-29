@@ -80,21 +80,35 @@ class GradeCalculator:
             total_credits += credit
         return total_points / total_credits if total_credits > 0 else 0
 
-    def generate_grade_report(self, students_data):
-        """生成成绩报告 - feature分支版本"""
-        report = []
-        for student_id, info in students_data.items():
-            grades = info['grades']
-            if grades:
-                total = sum(grades.values())
-                count = len(grades)
-                avg = total / count
-                level = self.get_grade_level(avg)
-                report.append({
-                    '学号': student_id,
-                    '姓名': info['name'],
-                    '平均分': round(avg, 2),
-                    '等级': level
-                })
-        return report
 
+def generate_grade_report(self, students_data):
+    """生成成绩报告"""
+    report = []
+    for student_id, info in students_data.items():
+        grades = info['grades']
+        if grades:
+            total = sum(grades.values())
+            count = len(grades)
+            avg = total / count
+            level = self.get_grade_level(avg)
+            report.append({
+                '学号': student_id,
+                '姓名': info['name'],
+                '平均分': round(avg, 2),
+                '等级': level
+            })
+    return report
+
+
+def calculate_grade_statistics(self, grades_data):
+    """计算成绩统计数据"""
+    statistics = {}
+    for course, grades in grades_data.items():
+        if grades:
+            statistics[course] = {
+                'average': sum(grades) / len(grades),
+                'max': max(grades),
+                'min': min(grades),
+                'count': len(grades)
+            }
+    return statistics
